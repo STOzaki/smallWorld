@@ -14,8 +14,10 @@ package smallworld;
 
 import edu.princeton.cs.StdIn;
 import edu.princeton.cs.StdOut;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Stack;
 
 /**
  *  The <tt>Queue</tt> class represents a first-in-first-out (FIFO)
@@ -78,9 +80,14 @@ public class Queue<Item> implements Iterable<Item> {
         if (isEmpty()) throw new RuntimeException("Queue underflow");
         return first.item;
     }
-
-   /**
+    
+    
+    /**
      * Add the item to the queue.
+     * 
+     * @param item adds the item to x, then checks to see if it is empty, if so
+     * then adds x, else put x as the last place and add 1 to N(Stating that 
+     * there is another element added.
      */
     public void enqueue(Item item) {
         Node x = new Node();
@@ -127,7 +134,10 @@ public class Queue<Item> implements Iterable<Item> {
         return new ListIterator();  
     }
 
-    // an iterator, doesn't implement remove() since it's optional
+    
+    /**
+     * an iterator, doesn't implement remove() since it's optional.
+     */
     private class ListIterator implements Iterator<Item> {
         private Node current = first;
 
@@ -143,8 +153,16 @@ public class Queue<Item> implements Iterable<Item> {
     }
 
 
-   /**
-     * A test client.
+    
+    /**
+     * Tests to see if this works.
+     * 
+     * As long as q has strings, it will add the latest q element that onto the
+     * items then the overall queue, then tells you how many more elements are 
+     * left in q.  And, as long as there are Strings in q, it will keep doing 
+     * this process.
+     * 
+     * @param args there are no arguments for this
      */
     public static void main(String[] args) {
         Queue<String> q = new Queue<String>();
