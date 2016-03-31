@@ -32,16 +32,31 @@
  *   -  Currently prints in reverse order due to stack toString()
  *
  ******************************************************************************/
-
+/**
+ *  The <tt>AllPaths</tt> class finds every path possible from two points.
+ *  It supports the following operations: enumerate, which finds every path
+ *  that uses G Graph, String s, and String t to make every possible path from s
+ *  to t.
+ *  <p>
+ *  For the source code, see <a href="http://introcs.cs.princeton.edu/java/45graph/AllPaths.java.html">Section 4.5</a> of
+ *  <i>Introduction to Programming in Java: An Interdisciplinary Approach</i> by Robert Sedgewick and Kevin Wayne.
+ */
 package smallworld;
 
 import edu.princeton.cs.StdOut;
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class AllPaths<Vertex> {
 
     private Stack<String> path  = new Stack<String>();   // the current path
     private SET<String> onPath  = new SET<String>();     // the set of vertices on the path
+    private ArrayList<ArrayList<String>> thepaths = new ArrayList<>();
+    private String shortpath;
+    private ArrayList<String> newpath = new ArrayList<>();
+    private ArrayList<String> rightpath = new ArrayList<>();
+    private ArrayList<String> oldpath = new ArrayList<>();
+    
 
     /**
      * Takes the parameters Graph G, String s, and String t and then calls
@@ -73,10 +88,33 @@ public class AllPaths<Vertex> {
         // add node v to current path from s
         path.push(v);
         onPath.add(v);
+//        int number = 0;
 
         // found path from s to t - currently prints in reverse order because of stack
-        if (v.equals(t)) 
-            StdOut.println(path);
+        if (v.equals(t)) {
+//            StdOut.println(path);
+//            ArrayList<String> paths = new ArrayList<>();
+//            for(int i = 0; i < path.size(); i++){
+//                rightpath.add(i,path.get(i));
+//            }
+            
+//            thepaths.add(rightpath);
+//            for(int i = 0; i < thepaths.size();i++){
+//                newpath = thepaths.get(0);
+//                if(shortpath.isEmpty()){
+//                    shortpath = rightpath.get(newpath.size());
+//                }
+//                else if(shortpath.size() > rightpath.size()){
+//                    shortpath = newpath.get(newpath.size());
+//                }
+//                              
+//            }
+//                oldpath = rightpath;
+//                rightpath.remove(0);
+//            newpath.remove(0);
+//            thepaths.remove(0);
+//            number = number + 1;
+        }
 
         // consider all neighbors that would continue path with repeating a node
         else {
@@ -86,8 +124,13 @@ public class AllPaths<Vertex> {
         }
 
         // done exploring from v, so remove from path
+        
         path.pop();
         onPath.delete(v);
+//        System.out.println(thepaths);
+//        System.out.println("the shortest path is " + shortpath + " with a "
+//                + "distance of " + shortpath.size());
+        
     }
 
     /**
