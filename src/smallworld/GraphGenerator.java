@@ -10,8 +10,24 @@ import edu.princeton.cs.StdOut;
  *
  ******************************************************************************/
 
+/**
+ * 
+ * @author Salem
+ * This program was taken from 
+ * http://introcs.cs.princeton.edu/java/45graph/AllPaths.java.html
+ */
 public class GraphGenerator {
 
+/**
+ * reads the text you give them.
+ * 
+ * makes a Graph then as long as there is another line, it will read each line
+ * and split each line up by the delimiter.  Then adds each name to the 
+ * appropriate movie starting with the first.
+ * @param in as long as there is something in the text file, it will read it.
+ * @param delimiter this is used to divide the each line.
+ * @return G which has all of the actors involved in each movie.
+ */
     public static Graph read(In in, String delimiter) {
         Graph G = new Graph();
         while (in.hasNextLine()) {
@@ -24,13 +40,21 @@ public class GraphGenerator {
         }
         return G;
     }
-
+    
+    /**
+     * uses a text file and delimiter from the main arguments to generate a 
+     * G Graph using GraphGenerator, then finds all paths.
+     * 
+     * @param args the file name and the delimiter.
+     */
     public static void main(String[] args) {
         String filename  = args[0];
         String delimiter = args[1];
         In in = new In(filename);
         Graph G = GraphGenerator.read(in, delimiter);
         StdOut.println(G);
+        AllPaths a = new AllPaths(G,"JFK","ORD");
+//        PathFinder b = new PathFinder(G,"JFK");
     }
 
 }
