@@ -47,8 +47,16 @@ public class Graph {
         st = new ST<String, SET<String>>();
     }
 
-   /**
+    /**
      * Create an graph from given input stream using given delimiter.
+     * 
+     * makes a new ST and SET called st.  As long as there is another line, it
+     * will grab that line and split it by the delimiter.  After putting all of
+     * the names in the one array, it will grab each one and adds the new edge
+     * for the first name.
+     * 
+     * @param in as long as there is something in the text file, it will read it.
+     * @param delimiter this is used to divide the each line.
      */
     public Graph(In in, String delimiter) {
         st = new ST<String, SET<String>>();
@@ -75,21 +83,36 @@ public class Graph {
         return E;
     }
 
-    // throw an exception if v is not a vertex
+    // 
+    /**
+     * throw an exception if v is not a vertex
+     * @param v if v does not have a vertex, then it will throw saying that 
+     * "v is not a vertex".
+     */
     private void validateVertex(String v) {
         if (!hasVertex(v)) throw new IllegalArgumentException(v + " is not a vertex");
     }
-
-   /**
+    
+    
+    /**
      * Degree of this vertex.
+     * @param v is used to find that word.
+     * @return the word in the st, then finds the size.
      */
     public int degree(String v) {
         validateVertex(v);
         return st.get(v).size();
     }
-
-   /**
-     * Add edge v-w to this graph (if it is not already an edge)
+    
+    
+    /**
+     * Add edge v-w to this graph (if it is not already an edge).
+     * 
+     * @param v if it does not have this string, then it will add v.  And, it
+     * gets the v in st and then adds w as a neighbor to v.
+     * 
+     * @param w  if it does not have w string, then it will add w.  And, it will
+     * grab w from the st and add v as a neighbor to w.
      */
     public void addEdge(String v, String w) {
         if (!hasVertex(v)) addVertex(v);
@@ -99,8 +122,12 @@ public class Graph {
         st.get(w).add(v);
     }
 
-   /**
+    
+    /**
      * Add vertex v to this graph (if it is not already a vertex)
+     * 
+     * @param v if it does not already have v, then put v as the key
+     * and with a new SET<String> as the value in the st.
      */
     public void addVertex(String v) {
         if (!hasVertex(v)) st.put(v, new SET<String>());
@@ -114,23 +141,37 @@ public class Graph {
         return st.keys();
     }
 
-   /**
+    
+    /**
      * Return the set of neighbors of vertex v as an Iterable.
+     * 
+     * @param v finds all of the neighbor(s) of v.
+     * @return the neighbor(s) of v.
      */
     public Iterable<String> adjacentTo(String v) {
         validateVertex(v);
         return st.get(v);
     }
 
-   /**
+    
+    /**
      * Is v a vertex in this graph?
+     * 
+     * @param v sees if v exists anywhere in st
+     * @return true if v is in st, else false will be returned.
      */
     public boolean hasVertex(String v) {
         return st.contains(v);
     }
 
-   /**
+    
+    /**
      * Is v-w an edge in this graph?
+     * 
+     * @param v checks to sees specifically v's neighbor.
+     * @param w to see if w exists as v's neighbor.
+     * @return returns a true or false statement depending on whether w exists
+     * as one of v's neighbor.
      */
     public boolean hasEdge(String v, String w) {
         validateVertex(v);
@@ -152,7 +193,11 @@ public class Graph {
         }
         return s.toString();
     }
-
+    /**
+     * Creates its own G Graph and then finds all of the neighbor(s) w for each 
+     * v.
+     * @param args there are no need for arguments for this main class.
+     */
     public static void main(String[] args) {
         Graph G = new Graph();
         G.addEdge("A", "B");

@@ -145,6 +145,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
     /**
      * Returns the smallest key in the symbol table.
+     * 
      * @return the smallest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
      */
