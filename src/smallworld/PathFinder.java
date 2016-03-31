@@ -40,7 +40,14 @@ public class PathFinder {
     private ST<String, String>  prev = new ST<String, String>();
     private ST<String, Integer> dist = new ST<String, Integer>();
 
-    // run BFS in graph G from given source vertex s
+    // 
+    /**
+     * run BFS in graph G from given source vertex s
+     * 
+     * @param G Looks through q and adds the distance and location of each vertex
+     * closest to s.
+     * @param s is the location you wish to check.
+     */
     public PathFinder(Graph G, String s) {
 
         // put source on the queue
@@ -62,18 +69,44 @@ public class PathFinder {
         }
     }
 
-    // is v reachable from the source s?
+
+    /**
+     * is v reachable from the source s?
+     * 
+     * @param v Checks to see if the vertex v exists in dist.
+     * @return true if v exists in dist, else false.
+     */
     public boolean hasPathTo(String v) {
         return dist.contains(v);
     }
 
-    // return the length of the shortest path from v to s
+
+    /**
+     * return the length of the shortest path from v to s.
+     * 
+     * if there is a path to v then it will get that and then add it to the 
+     * dist.
+     * 
+     * @param v checks if there is a path to v.
+     * @return grabs the path towards v and stores it in dist.
+     */
     public int distanceTo(String v) {
         if (!hasPathTo(v)) return Integer.MAX_VALUE;
         return dist.get(v);
     }
 
-    // return the shortest path from v to s as an Iterable
+
+    
+    
+    /**
+     * return the shortest path from v to s as an Iterable
+     * 
+     * If there is a v and it is not already in dist, then add it as the previous
+     * path, and then return the path
+     * 
+     * @param v vertex you are adding
+     * @return returns the path that v has been added to.
+     */
     public Iterable<String> pathTo(String v) {
         Stack<String> path = new Stack<String>();
         while (v != null && dist.contains(v)) {
@@ -83,7 +116,16 @@ public class PathFinder {
         return path;
     }
 
-
+/**
+ * Tests the program by using a text file and running the class.
+ * 
+ * It takes the file and then runs the GraphGenerator to make it organized.
+ * Then applies this class.  After words it tells the path and distance to 
+ * "JFK" and "MCO" using the method under the main called report.
+ * 
+ * @param args the file name, what divides each word, and the place you wish to
+ * go.
+ */
     public static void main(String[] args) {
         String filename  = args[0];
         String delimiter = args[1];
@@ -101,7 +143,10 @@ public class PathFinder {
         
     } // main( String [] )
 
-
+    /**
+     * Takes and prints out the path and then the distance from airport.
+     * @param airport the ending point for the path.
+     */
     private void report( String airport ) {
 
             for (String v : this.pathTo(airport)) {

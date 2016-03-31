@@ -193,8 +193,11 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
         return head.lastKey();
     }
 
+
     /**
      * Unit tests the <tt>ST</tt> data type.
+     * 
+     * @param args There are no arguments in this main.
      */
     public static void main(String[] args) {
         ST<String, String> st = new ST<String, String>();

@@ -46,9 +46,18 @@ public class Graph {
     public Graph() {
         st = new ST<String, SET<String>>();
     }
-
-   /**
+    
+    
+    /**
      * Create an graph from given input stream using given delimiter.
+     * 
+     * Creates st and then checks to see if there is another line, and if there
+     * is then if looks at it and splits by delimiter then stores it onto names.
+     * After it stores all of the edges associated with the first name.
+     * 
+     * @param in used to see if there is another line.
+     * @param delimiter is used to separate each word in line and store it in
+     * name.
      */
     public Graph(In in, String delimiter) {
         st = new ST<String, SET<String>>();
@@ -61,35 +70,60 @@ public class Graph {
         }
     }
 
-   /**
+
+    /**
      * Number of vertices.
+     * 
+     * @return the size of the st
      */
     public int V() {
         return st.size();
     }
 
-   /**
+
+    /**
      * Number of edges.
+     * 
+     * @return how many edges.
      */
     public int E() {
         return E;
     }
 
-    // throw an exception if v is not a vertex
+
+    /**
+     * throw an exception if v is not a vertex.
+     * 
+     * @param v checks to see if the String v is a vertex.
+     */
     private void validateVertex(String v) {
         if (!hasVertex(v)) throw new IllegalArgumentException(v + " is not a vertex");
     }
 
    /**
+     * 
+     */
+    /**
      * Degree of this vertex.
+     * 
+     * @param v grabs the edges from st and checks to see how many edges are
+     * connected to it.
+     * @return returns the number of edges or degree for v.
      */
     public int degree(String v) {
         validateVertex(v);
         return st.get(v).size();
     }
 
-   /**
-     * Add edge v-w to this graph (if it is not already an edge)
+    
+    
+    /**
+     * Add edge v-w to this graph (if it is not already an edge).
+     * 
+     * @param v check to see if there is a vertex named v, and if not it will
+     * add it.  After it adds w as one of v's edge(s).
+     * @param w check to see if there is a vertex named w, and if not it will
+     * add it.  After it adds v as one of w's edge(s).
      */
     public void addEdge(String v, String w) {
         if (!hasVertex(v)) addVertex(v);
@@ -99,38 +133,61 @@ public class Graph {
         st.get(w).add(v);
     }
 
-   /**
-     * Add vertex v to this graph (if it is not already a vertex)
+
+    
+    /**
+     * Add vertex v to this graph (if it is not already a vertex).
+     * 
+     * @param v If v is not a vertex, then it adds v to st with new SET.
      */
     public void addVertex(String v) {
         if (!hasVertex(v)) st.put(v, new SET<String>());
     }
 
 
-   /**
+    
+    /**
      * Return the set of vertices as an Iterable.
+     * 
+     * @return returns all of the vertices.
      */
     public Iterable<String> vertices() {
         return st.keys();
     }
 
-   /**
+    
+    
+    /**
      * Return the set of neighbors of vertex v as an Iterable.
+     * 
+     * @param v grabs all of the neighbors of v from st.
+     * @return gives you the vertex of v in st.
      */
     public Iterable<String> adjacentTo(String v) {
         validateVertex(v);
         return st.get(v);
     }
 
-   /**
+   
+    
+    /**
      * Is v a vertex in this graph?
+     * 
+     * @param v checks to see if the vector v exists in st.
+     * @return returns true if v exits in st, else false.
      */
     public boolean hasVertex(String v) {
         return st.contains(v);
     }
 
-   /**
+    
+    
+    /**
      * Is v-w an edge in this graph?
+     * 
+     * @param v Grabs the vector v from st.
+     * @param w is used to check to see if the edge w exists in vector v.
+     * @return returns true if the edge w exists in the vertex v.
      */
     public boolean hasEdge(String v, String w) {
         validateVertex(v);
@@ -138,8 +195,11 @@ public class Graph {
         return st.get(v).contains(w);
     }
 
-   /**
-     * Return a string representation of the graph.
+    
+    
+    /**
+     * 
+     * @return Return a string representation of the graph.
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -153,6 +213,15 @@ public class Graph {
         return s.toString();
     }
 
+    
+    /**
+     * Tests out this program by building its own G Graph and testing it.
+     * 
+     * It goes through every v string and states what is the name of the vertex
+     * and names all of the edges within each vertex.
+     * 
+     * @param args There are no arguments in this one.
+     */
     public static void main(String[] args) {
         Graph G = new Graph();
         G.addEdge("A", "B");

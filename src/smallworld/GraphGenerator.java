@@ -2,6 +2,7 @@ package smallworld;
 
 import edu.princeton.cs.In;
 import edu.princeton.cs.StdOut;
+import java.util.ArrayList;
 
 /******************************************************************************
  *  Compilation:  javac GraphGenerator.java
@@ -9,12 +10,14 @@ import edu.princeton.cs.StdOut;
  *  Dependencies: Graph.java In.java StdOut.java
  *
  ******************************************************************************/
-
 /**
- * 
- * @author Salem
- * This program was taken from 
- * http://introcs.cs.princeton.edu/java/45graph/AllPaths.java.html
+ *  The <tt>GraphGenerator</tt> class that builds Graph using a text file.
+ *  It supports the following operations: read which reads a text file and
+ * divides each of the lines up and then divides each of the names up by the
+ * delimiter which is the main argument.
+ *  <p>
+ *  For the source code, see <a href="http://introcs.cs.princeton.edu/java/45graph/GraphGenerator.java.html">Section 4.5</a> of
+ *  <i>Introduction to Programming in Java: An Interdisciplinary Approach</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class GraphGenerator {
 
@@ -54,7 +57,6 @@ public class GraphGenerator {
         Graph G = GraphGenerator.read(in, delimiter);
         StdOut.println(G);
         AllPaths a = new AllPaths(G,"JFK","ORD");
-//        PathFinder b = new PathFinder(G,"JFK");
     }
 
 }

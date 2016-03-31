@@ -80,9 +80,11 @@ public class Queue<Item> implements Iterable<Item> {
         return N;     
     }
 
-   /**
+
+    /**
      * Return the item least recently added to the queue.
      * Throw an exception if the queue is empty.
+     * @return the first of the items.
      */
     public Item peek() {
         if (isEmpty()) throw new RuntimeException("Queue underflow");
@@ -111,9 +113,11 @@ public class Queue<Item> implements Iterable<Item> {
         N++;
     }
 
-   /**
+    
+    /**
      * Remove and return the item on the queue least recently added.
      * Throw an exception if the queue is empty.
+     * @return the items without the last element.
      */
     public Item dequeue() {
         if (isEmpty()) throw new RuntimeException("Queue underflow");
