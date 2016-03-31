@@ -51,22 +51,30 @@ public class Queue<Item> implements Iterable<Item> {
         last  = null;
     }
 
-   /**
+    
+    
+    /**
      * Is the queue empty?
+     * @return ture if there no element.
      */
     public boolean isEmpty() {
         return first == null;
     }
 
-   /**
+
+    /**
      * Return the number of items in the queue.
+     * @return the size of queue.
      */
     public int size() {
         return N;     
     }
 
-   /**
+
+    
+    /**
      * Return the number of items in the queue.
+     * @return the length of the queue (same as size).
      */
     public int length() {
         return N;     
@@ -162,7 +170,7 @@ public class Queue<Item> implements Iterable<Item> {
      * left in q.  And, as long as there are Strings in q, it will keep doing 
      * this process.
      * 
-     * @param args there are no arguments for this
+     * @param args there are no arguments for this.
      */
     public static void main(String[] args) {
         Queue<String> q = new Queue<String>();
