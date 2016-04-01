@@ -74,7 +74,7 @@ public class Graph {
     /**
      * Number of vertices.
      * 
-     * @return the size of the st
+     * @return number of vertices.
      */
     public int V() {
         return st.size();
@@ -212,7 +212,86 @@ public class Graph {
         }
         return s.toString();
     }
+    
+    private String makeName(int a){
+        return "v" + a;
+    }
+    
+    private String makeName(int row, int column){
+        return "v" + row + "c" + column;
+    }
+    
+    public void completegraph(int v){
+        for(int i = 0; i < v; i++){
+            for(int a = i + 1; a < v; a++){
+                this.addEdge(makeName(i), makeName(a));
+            }
+        }
+    }
+    
+    public void ringGraph(int r){
+        for(int i = 0; i < r - 1;i++){
+            this.addEdge(makeName(i), makeName(i + 1));
+        }
+        this.addEdge(makeName(r - 1), makeName(0));
+    }
+    
+    public double avgDegree(){
+        double total = 0;
+        for(String vertex : this.vertices()){
+            total += this.degree(vertex);
+        }
+        double average = total/this.V();
+        return average;
+    }
+    
+    public double avgLength(){
+        double grandtotal = 0;
+        int counter = 0;
+        for(String vertex : this.vertices()){
+            PathFinder pf = new PathFinder(this,vertex);
+            double total = 0;
+            for(String othervertex: this.vertices()){
+                if(vertex.equals(othervertex))break;
+                counter ++;
+                total += pf.distanceTo(othervertex);
+            }
+            total /= (this.V() - 1);
+            grandtotal += total;
+        }
+        double average = (grandtotal/counter);
+        return average;
+    }
+    public void writeDotFile(){
+        for(String u : this.vertices()){
+            for(String v : this.vertices()){
+                String a = u;
+                String b = v;
+                if((u.compareTo(v)< 0)&&(this.hasEdge(u, v))){
+                    System.out.println(a + "->" + b + ":");
+                } // if
 
+            } // for
+        } // for
+    } // writeDotFile()
+    
+    public void gridGraph(int n){
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n - 1; j++){
+                this.addEdge(makeName(i,j),makeName(i,j+1));
+                this.addEdge(makeName(i,j),makeName(i+1,j));
+                
+            } // for
+        } // for
+        // Complete right-most edges;
+        for (int i = 0; i < n - 1; i++){
+            this.addEdge(makeName(i,n-1), makeName(i + 1,n - 1));
+        } // for
+        // Complete bottom-most edges;
+        for(int i = 0; i < n - 1; i++){
+            this.addEdge(makeName(n-1,i), makeName(n-1,i+1));
+        }
+    }
     
     /**
      * Tests out this program by building its own G Graph and testing it.
@@ -224,25 +303,29 @@ public class Graph {
      */
     public static void main(String[] args) {
         Graph G = new Graph();
-        G.addEdge("A", "B");
-        G.addEdge("A", "C");
-        G.addEdge("C", "D");
-        G.addEdge("D", "E");
-        G.addEdge("D", "G");
-        G.addEdge("E", "G");
-        G.addVertex("H");
-
-        // print out graph
-        StdOut.println(G);
-
-        // print out graph again by iterating over vertices and edges
-        for (String v : G.vertices()) {
-            StdOut.print(v + ": ");
-            for (String w : G.adjacentTo(v)) {
-                StdOut.print(w + " ");
-            }
-            StdOut.println();
-        }
+        G.gridGraph(4);
+        G.writeDotFile();
+        System.out.println(G.avgLength());
+//        Graph G = new Graph();
+//        G.addEdge("A", "B");
+//        G.addEdge("A", "C");
+//        G.addEdge("C", "D");
+//        G.addEdge("D", "E");
+//        G.addEdge("D", "G");
+//        G.addEdge("E", "G");
+//        G.addVertex("H");
+//
+//        // print out graph
+//        StdOut.println(G);
+//
+//        // print out graph again by iterating over vertices and edges
+//        for (String v : G.vertices()) {
+//            StdOut.print(v + ": ");
+//            for (String w : G.adjacentTo(v)) {
+//                StdOut.print(w + " ");
+//            }
+//            StdOut.println();
+//        }
 
     }
 
