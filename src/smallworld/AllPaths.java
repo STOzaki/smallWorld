@@ -97,15 +97,11 @@ public class AllPaths<Vertex> {
             for (int i = 0; i < path.size(); i++) {
                 rightpath.add(i, path.get(i));
             }
-            System.out.println(rightpath.size());
-
-//            System.out.println(rightpath.size());
+            
             if ((rightpath.size() < shortpath.size()) && !shortpath.isEmpty()) {
-//                    shortpath.clear(); 
                 shortpath.clear();
                 for (int i = 0; i < rightpath.size(); i++) {
                     shortpath.add(i, rightpath.get(i));
-//                        System.out.println(shortpath);
                 }
 
 //                    shortpath = rightpath;
@@ -115,24 +111,17 @@ public class AllPaths<Vertex> {
             }
 //            thepaths.add(rightpath);
             if (shortpath.isEmpty()) {
-//                    System.out.println(rightpath.size());
                 for (int i = 0; i < rightpath.size(); i++) {
                     shortpath.add(i, rightpath.get(i));
-//                        System.out.println(shortpath);
                 }
-//                    shortpath = rightpath;
-//                    System.out.println(rightpath);
+                
                 rightpath.clear();
-//                    System.out.println(shortpath);
 
             }
-//            System.out.println("rightpath " + rightpath.size());
-//            System.out.println("shortpath " + shortpath.size());
-//                rightpath.clear();
 
             rightpath.clear();
-//                System.out.println(shortpath);
-        } // consider all neighbors that would continue path with repeating a node
+        } 
+        // consider all neighbors that would continue path with repeating a node
         else {
             for (String w : G.adjacentTo(v)) {
                 if (!onPath.contains(w)) {
@@ -146,13 +135,26 @@ public class AllPaths<Vertex> {
         onPath.delete(v);
         
         if(path.isEmpty()){
-            System.out.println(shortpath);
-        }
-//        System.out.println(path);
-//        System.out.println(thepaths);
-//        System.out.println("the shortest path is " + shortpath + " with a "
-//                + "distance of " + shortpath.size());
+            printingPath();
+        } // if
 
+    } // enumerate(Graph,String,String)
+
+    public void printingPath(){
+        if(shortpath.size() <= 2){
+            System.out.println();
+            System.out.println("You went two steps.");
+            System.out.println("You started at " + shortpath.get(0) + " and then"
+                    + " directly got to your destination, "
+            + shortpath.get(1) + ".");
+        }
+        else{
+        System.out.println("The shortest path starts at " + shortpath.get(0));
+        for(int i = 1; i < shortpath.size() - 1; i++){
+            System.out.println("to " + shortpath.get(i));
+        }
+        System.out.println("and then you arrive at your destination " + shortpath.get(shortpath.size() -  1));
+        }
     }
 
     /**

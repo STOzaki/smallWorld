@@ -3,6 +3,7 @@ package smallworld;
 import edu.princeton.cs.In;
 import edu.princeton.cs.StdOut;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /******************************************************************************
  *  Compilation:  javac GraphGenerator.java
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  *  <i>Introduction to Programming in Java: An Interdisciplinary Approach</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class GraphGenerator {
+
 
 /**
  * reads the text you give them.
@@ -56,7 +58,14 @@ public class GraphGenerator {
         In in = new In(filename);
         Graph G = GraphGenerator.read(in, delimiter);
         StdOut.println(G);
-        AllPaths a = new AllPaths(G,"JFK","ORD");
+        System.out.println("Now that you can see all of the places that you"
+                + " can go,");
+        System.out.println("Where are you?");
+        Scanner begin = new Scanner(System.in);
+        String start = begin.nextLine();
+        System.out.println("  And, where would you like to go?");
+        String end = begin.nextLine();
+        AllPaths a = new AllPaths(G , start, end);        
     }
 
 }
