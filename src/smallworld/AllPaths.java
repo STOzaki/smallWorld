@@ -49,6 +49,7 @@ package smallworld;
 
 import edu.princeton.cs.StdOut;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class AllPaths<Vertex> {
@@ -69,9 +70,24 @@ public class AllPaths<Vertex> {
      * @param s The start of the path.
      * @param t The end of the path.
      */
-    public AllPaths(Graph G, String s, String t) {
-        enumerate(G, s, t);
-    }
+    public AllPaths(Graph G) {
+        System.out.println("Now that you can see all of the places that you"
+                + " can go,");
+        System.out.println("Where are you?");
+        Scanner begin = new Scanner(System.in);
+        String start = begin.nextLine();
+        System.out.println("  And, where would you like to go?");
+        String end = begin.nextLine();
+        System.out.println();
+        try{
+        enumerate(G, start, end);
+        } //try
+        catch (IndexOutOfBoundsException e) {
+    System.err.println("ERROR! I am sorry that is not correct (You may have typed"
+            + " something incorrectly).");
+            AllPaths allPaths = new AllPaths(G);
+    }// catch
+    } // AllPaths(Graph)
 
     /**
      * use DFS
@@ -153,7 +169,7 @@ public class AllPaths<Vertex> {
         for(int i = 1; i < shortpath.size() - 1; i++){
             System.out.println("to " + shortpath.get(i));
         }
-        System.out.println("and then you arrive at your destination " + shortpath.get(shortpath.size() -  1));
+        System.out.println("and then you arrive at your destination, " + shortpath.get(shortpath.size() -  1));
         }
     }
 
@@ -177,9 +193,9 @@ public class AllPaths<Vertex> {
         G.addEdge("D", "G");
         G.addEdge("E", "G");
         StdOut.println(G);
-        new AllPaths(G, "A", "G");
+        new AllPaths(G);
         StdOut.println();
-        new AllPaths(G, "B", "F");
+        new AllPaths(G);
     }
 
 }

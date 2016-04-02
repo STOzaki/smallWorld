@@ -58,14 +58,8 @@ public class GraphGenerator {
         In in = new In(filename);
         Graph G = GraphGenerator.read(in, delimiter);
         StdOut.println(G);
-        System.out.println("Now that you can see all of the places that you"
-                + " can go,");
-        System.out.println("Where are you?");
-        Scanner begin = new Scanner(System.in);
-        String start = begin.nextLine();
-        System.out.println("  And, where would you like to go?");
-        String end = begin.nextLine();
-        AllPaths a = new AllPaths(G , start, end);        
+        
+        AllPaths a = new AllPaths(G);        
     }
 
 }

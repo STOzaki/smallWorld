@@ -1,0 +1,45 @@
+Thomas Commons,/Bowman Carter Hall,
+Thomas Commons/Armstrong Hall
+Thomas Commons/Ebersole Center
+Armstrong Hall/Merner Hall
+Armstrong Hall/Garner President's House
+Garner President's House/Collin House
+Collin House/Harlan House
+Harlan House/Russell Hall
+Russell Hall/Pauley Rorem
+Pauley Rorem/Olin Hall
+Olin Hall/Merner Hall
+Small Center/Merner Hall
+Small Center/McWethy Hall
+McWethy Hall/Lytle House
+Lytle House/Platner House
+Platner House/Admission Center
+Admission Center/Albright House
+Albright house/Alumni Center
+Alumni Center/Stoner House
+Norton Geology/Stoner House
+College Hall/ Norton Geology
+Prall House/Norton Geology
+Ebersole Center/Allee Chapel
+Ebersole Center/Dows Hall
+Dows Hall/Allee Chapel
+Dows Hall/Pfeiffer Hall
+Dows Hall/Tarr Hall
+Pfeiffer Hall/Tarr Hall
+Ink Pond/Tarr Hall
+Allee Chapel/King Chapel
+Bowman Carter Hall/King Chapel
+King Chapel/Old Sem
+Old Sem/Cole Library
+King Chapel/Cole Library
+Thomas Commons/Merner Hall
+Allee Chapel/Cole Library
+Law Hall/Old Sem
+Law Hall/Cole Library
+Law Hall/College Hall
+College Hall/West Science
+West Science/South Hall
+South Hall/College Hall
+South Hall/Brackett House
+Brackett House/Prall House
+South Hall/Lacey House
