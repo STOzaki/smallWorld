@@ -56,38 +56,57 @@ public class AllPaths<Vertex> {
 
     private Stack<String> path = new Stack<String>();   // the current path
     private SET<String> onPath = new SET<String>();     // the set of vertices on the path
-//    private ArrayList<ArrayList<String>> thepaths = new ArrayList<>();
-//    private String shortpath;
-    private ArrayList<String> shortpath = new ArrayList<>();
-    private ArrayList<String> rightpath = new ArrayList<>();
-//    private ArrayList<String> oldpath = new ArrayList<>();
+    private ArrayList<String> shortpath = new ArrayList<>(); // shortest path
+    private ArrayList<String> rightpath = new ArrayList<>(); // the path that links to desired ending
+    private String start;
+    private String end;
+    private String length;
+    private String choice;
+    private Graph T;
 
     /**
-     * Takes the parameters Graph G, String s, and String t and then calls the
-     * method enumerate.
+     * Takes the parameter Graph G, then asks the user for the start and end.
+     * And then it calls the method enumerate with the Graph G and the two
+     * inputs from the user.
      *
      * @param G The graph that has all of the vertexes and their edges.
-     * @param s The start of the path.
-     * @param t The end of the path.
      */
     public AllPaths(Graph G) {
+        System.out.println(G.getClass());
+        prompt();
+
+        try {
+            enumerate(G, start, end);
+        } //try
+        catch (Exception e) {
+            System.out.println("\033[31m" + "ERROR! Something went wrong. Please try again.");
+            System.out.println();
+            AllPaths allPaths = new AllPaths(G);
+        }// catch
+    } // AllPaths(Graph)
+    
+    public void prompt(){
         System.out.println("Now that you can see all of the places that you"
                 + " can go,");
-        System.out.println("Where are you?");
-        Scanner begin = new Scanner(System.in);
-        String start = begin.nextLine();
-        System.out.println("  And, where would you like to go?");
-        String end = begin.nextLine();
         System.out.println();
-        try{
-        enumerate(G, start, end);
-        } //try
-        catch (IndexOutOfBoundsException e) {
-    System.err.println("ERROR! I am sorry that is not correct (You may have typed"
-            + " something incorrectly).");
-            AllPaths allPaths = new AllPaths(G);
-    }// catch
-    } // AllPaths(Graph)
+        System.out.println("Where are you?");
+        Scanner answer = new Scanner(System.in);
+        start = answer.nextLine();
+        System.out.println();
+        System.out.println("And, where would you like to go?");
+        end = answer.nextLine();
+        System.out.println();
+        System.out.println("Do you want the shortest or longest route?");
+        length = answer.nextLine();
+        length.toLowerCase();
+        System.out.println();
+        System.out.println("Would you like for me to print out every line, "
+                + "yes or no?"
+                + " (Warning: there may be more paths than you expect!)");
+        choice = answer.nextLine();
+        choice.toLowerCase();
+        System.out.println();
+    }
 
     /**
      * use DFS
@@ -105,38 +124,12 @@ public class AllPaths<Vertex> {
         // add node v to current path from s
         path.push(v);
         onPath.add(v);
-//        int number = 0;
 
         // found path from s to t - currently prints in reverse order because of stack
         if (v.equals(t)) {
+            shortLong();
 
-            for (int i = 0; i < path.size(); i++) {
-                rightpath.add(i, path.get(i));
-            }
-            
-            if ((rightpath.size() < shortpath.size()) && !shortpath.isEmpty()) {
-                shortpath.clear();
-                for (int i = 0; i < rightpath.size(); i++) {
-                    shortpath.add(i, rightpath.get(i));
-                }
-
-//                    shortpath = rightpath;
-//                    rightpath.clear();
-//                    System.out.println(rightpath);
-//                    System.out.println(shortpath);
-            }
-//            thepaths.add(rightpath);
-            if (shortpath.isEmpty()) {
-                for (int i = 0; i < rightpath.size(); i++) {
-                    shortpath.add(i, rightpath.get(i));
-                }
-                
-                rightpath.clear();
-
-            }
-
-            rightpath.clear();
-        } 
+        } // if(v.equals(t))
         // consider all neighbors that would continue path with repeating a node
         else {
             for (String w : G.adjacentTo(v)) {
@@ -149,28 +142,93 @@ public class AllPaths<Vertex> {
         // done exploring from v, so remove from path
         path.pop();
         onPath.delete(v);
-        
-        if(path.isEmpty()){
-            printingPath();
+
+        if (path.isEmpty()) {
+            printingShort();
         } // if
 
     } // enumerate(Graph,String,String)
 
-    public void printingPath(){
-        if(shortpath.size() <= 2){
+    
+    /**
+     * Finds the shortest route.
+     * 
+     * It puts the correct path's values into the rightpath.  After, it checks
+     * to see if the rightpath is shorter than the current shortpath and the
+     * set is not already empty.  If they are, then it will add the rightpath to
+     * the shortpath.  Next it checks to see if the shortpath is
+     * null.  If it is, then it will automatically add the right value. After,
+     * the rightpath must lose its values for the next recursion.
+     * 
+     */
+    public void shortLong() {
+        for (int i = 0; i < path.size(); i++) {
+            rightpath.add(i, path.get(i));
+        }
+        
+        //choose whether to print all the paths or not.
+        if(choice.equals("yes")) printPath();
+        
+        
+        if ((rightpath.size() < shortpath.size()) && !shortpath.isEmpty() && "shortest".equals(length)) {
+            shortpath.clear();
+            for (int i = 0; i < rightpath.size(); i++) {
+                shortpath.add(i, rightpath.get(i));
+            }
+        }
+        if((rightpath.size() > shortpath.size()) && !shortpath.isEmpty() && "longest".equals(length)){
+            shortpath.clear();
+            for (int i = 0; i < rightpath.size(); i++) {
+                shortpath.add(i, rightpath.get(i));
+            }
+        }
+        
+        if (shortpath.isEmpty()) {
+            for (int i = 0; i < rightpath.size(); i++) {
+                shortpath.add(i, rightpath.get(i));
+            }
+
+        }
+
+        rightpath.clear();
+    }
+    
+    public void printPath(){
+        System.out.println("One way to get from " + start + " to " + end + ":");
+        for(int i = 0; i < rightpath.size() - 1; i++){
+            String spot = rightpath.get(i);
+            System.out.println(spot + " to ");
+        } // for
+        System.out.println("And finally to your destination, " + end);
+        System.out.println();
+    } // printPath()
+
+    
+    /**
+     * Uses the shortest path and prints out every element.
+     */
+    public void printingShort() {
+        if (shortpath.size() <= 2) {
             System.out.println();
             System.out.println("You went two steps.");
             System.out.println("You started at " + shortpath.get(0) + " and then"
                     + " directly got to your destination, "
-            + shortpath.get(1) + ".");
+                    + shortpath.get(1) + ".");
+        } else {
+            System.out.println("The shortest path starts at " + shortpath.get(0));
+            for (int i = 1; i < shortpath.size() - 1; i++) {
+                System.out.println("to " + shortpath.get(i));
+            }
+            System.out.println("and then you arrive at your destination, " + shortpath.get(shortpath.size() - 1));
         }
-        else{
-        System.out.println("The shortest path starts at " + shortpath.get(0));
-        for(int i = 1; i < shortpath.size() - 1; i++){
-            System.out.println("to " + shortpath.get(i));
-        }
-        System.out.println("and then you arrive at your destination, " + shortpath.get(shortpath.size() -  1));
-        }
+        System.out.println("Would you like directions to a new place, yes or no?");
+        Scanner choose = new Scanner(System.in);
+        String again = choose.nextLine();
+        again.toLowerCase();
+//        if(again.equals("yes")){
+//            
+//        }
+        
     }
 
     /**
