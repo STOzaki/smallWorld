@@ -57,8 +57,7 @@ public class GraphGenerator {
         String delimiter = args[1];
         In in = new In(filename);
         Graph G = GraphGenerator.read(in, delimiter);
-//        StdOut.println(G);
-        
+        StdOut.println(G);
         AllPaths a = new AllPaths(G);        
     }
 

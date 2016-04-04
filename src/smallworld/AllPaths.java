@@ -54,15 +54,15 @@ import java.util.Stack;
 
 public class AllPaths<Vertex> {
 
-    private Stack<String> path = new Stack<String>();   // the current path
-    private SET<String> onPath = new SET<String>();     // the set of vertices on the path
-    private ArrayList<String> shortpath = new ArrayList<>(); // shortest path
-    private ArrayList<String> rightpath = new ArrayList<>(); // the path that links to desired ending
-    private String start;
-    private String end;
-    private String length;
-    private String choice;
-    private Graph T;
+    private Stack<String> path = new Stack<String>();   // The current path
+    private SET<String> onPath = new SET<String>();     // The set of vertices on the path
+    private ArrayList<String> shortpath = new ArrayList<>(); // Shortest path
+    private ArrayList<String> rightpath = new ArrayList<>(); // The path that links to desired ending
+    private String start; // The starting point of the path
+    private String end; //  The ending poing of the path
+    private String length; // Whether to print the shortest or longest
+    private String choice; // Do you want to print every path possible
+    private String digraph; // Would you like to put it into digraph form
 
     /**
      * Takes the parameter Graph G, then asks the user for the start and end.
@@ -72,19 +72,27 @@ public class AllPaths<Vertex> {
      * @param G The graph that has all of the vertexes and their edges.
      */
     public AllPaths(Graph G) {
-        System.out.println(G.getClass());
         prompt();
 
         try {
             enumerate(G, start, end);
         } //try
         catch (Exception e) {
-            System.out.println("\033[31m" + "ERROR! Something went wrong. Please try again.");
+            System.out.println("\033[31m" + "ERROR! Something was mispelled. Please try again.");
+            System.out.println("\033[0m");
             System.out.println();
             AllPaths allPaths = new AllPaths(G);
         }// catch
     } // AllPaths(Graph)
     
+    
+    /**
+     * Tells the user what to do
+     * 
+     * It give clear instructions on what to input: starting point, ending point,
+     * shortest or longest route, whether to print all paths, and whether you
+     * want the shortest or longest route to be in digraph form.
+     */
     public void prompt(){
         System.out.println("Now that you can see all of the places that you"
                 + " can go,");
@@ -106,6 +114,10 @@ public class AllPaths<Vertex> {
         choice = answer.nextLine();
         choice.toLowerCase();
         System.out.println();
+        System.out.println("Would you like for this to printed in digraph, yes or no?");
+        digraph = answer.nextLine();
+        digraph.toLowerCase();
+        System.out.println();
     }
 
     /**
@@ -125,11 +137,12 @@ public class AllPaths<Vertex> {
         path.push(v);
         onPath.add(v);
 
-        // found path from s to t - currently prints in reverse order because of stack
+        // found path from s to t - currently prints in reverse order because of stack, and uses the shortLong method.
         if (v.equals(t)) {
             shortLong();
 
         } // if(v.equals(t))
+        
         // consider all neighbors that would continue path with repeating a node
         else {
             for (String w : G.adjacentTo(v)) {
@@ -142,18 +155,26 @@ public class AllPaths<Vertex> {
         // done exploring from v, so remove from path
         path.pop();
         onPath.delete(v);
-
+        
+        // once it has finished checking all paths, then it will print the path out in digraph or regular form.
         if (path.isEmpty()) {
-            printingShort();
+            if(digraph.equals("yes")){
+                printDigraph();
+            }
+            else{
+                printingShort();
+            }
         } // if
 
     } // enumerate(Graph,String,String)
 
     
     /**
-     * Finds the shortest route.
+     * Finds the shortest or longest route.
      * 
-     * It puts the correct path's values into the rightpath.  After, it checks
+     * It first checks to see if the user is asking for the shortest or longest
+     * path, then it puts the correct path's values into the rightpath.  After, 
+     * it checks
      * to see if the rightpath is shorter than the current shortpath and the
      * set is not already empty.  If they are, then it will add the rightpath to
      * the shortpath.  Next it checks to see if the shortpath is
@@ -164,34 +185,36 @@ public class AllPaths<Vertex> {
     public void shortLong() {
         for (int i = 0; i < path.size(); i++) {
             rightpath.add(i, path.get(i));
-        }
+        } // for
         
-        //choose whether to print all the paths or not.
+        // Choose whether to print all the paths or not.
         if(choice.equals("yes")) printPath();
         
-        
+        // Checks and stores the shortest path if the user wanted the shortest.
         if ((rightpath.size() < shortpath.size()) && !shortpath.isEmpty() && "shortest".equals(length)) {
             shortpath.clear();
             for (int i = 0; i < rightpath.size(); i++) {
                 shortpath.add(i, rightpath.get(i));
-            }
-        }
+            } // for
+        } // if
+        
+        // Checks and stores the longest path if the user wanted the longest
         if((rightpath.size() > shortpath.size()) && !shortpath.isEmpty() && "longest".equals(length)){
             shortpath.clear();
             for (int i = 0; i < rightpath.size(); i++) {
                 shortpath.add(i, rightpath.get(i));
-            }
-        }
+            } // for
+        }  // if
         
+        // Start with the first element in the shortpath.
         if (shortpath.isEmpty()) {
             for (int i = 0; i < rightpath.size(); i++) {
                 shortpath.add(i, rightpath.get(i));
-            }
-
-        }
+            } // for
+        } // if
 
         rightpath.clear();
-    }
+    } // shortLong()
     
     public void printPath(){
         System.out.println("One way to get from " + start + " to " + end + ":");
@@ -202,6 +225,14 @@ public class AllPaths<Vertex> {
         System.out.println("And finally to your destination, " + end);
         System.out.println();
     } // printPath()
+    
+    public void printDigraph(){
+        System.out.println("digraph G{");
+        for(int i = 0; i < shortpath.size() - 1; i++){
+            System.out.println("  " + shortpath.get(i) + " -> " + shortpath.get(i+1));
+        } // for
+        System.out.println("}");
+    } // printDigraph()
 
     
     /**
@@ -218,16 +249,10 @@ public class AllPaths<Vertex> {
             System.out.println("The shortest path starts at " + shortpath.get(0));
             for (int i = 1; i < shortpath.size() - 1; i++) {
                 System.out.println("to " + shortpath.get(i));
-            }
-            System.out.println("and then you arrive at your destination, " + shortpath.get(shortpath.size() - 1));
-        }
-        System.out.println("Would you like directions to a new place, yes or no?");
-        Scanner choose = new Scanner(System.in);
-        String again = choose.nextLine();
-        again.toLowerCase();
-//        if(again.equals("yes")){
-//            
-//        }
+            } // for
+            System.out.println("and then you arrive at your destination, " + shortpath.get(shortpath.size() - 1)
+                    + ": with distance " + (shortpath.size()-1) + ".");
+        } // else
         
     }
 

@@ -66,9 +66,9 @@ public class Graph {
             String[] names = line.split(delimiter);
             for (int i = 1; i < names.length; i++) {
                 addEdge(names[0], names[i]);
-            }
-        }
-    }
+            } // for
+        } // while
+    } // Graph()
 
 
     /**
@@ -142,7 +142,7 @@ public class Graph {
      */
     public void addVertex(String v) {
         if (!hasVertex(v)) st.put(v, new SET<String>());
-    }
+    } // addVertex()
 
 
     
