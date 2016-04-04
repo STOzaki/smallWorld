@@ -1,39 +1,9 @@
-/**
- * ****************************************************************************
+/*****************************************************************************
  *  Compilation:  javac AllPaths.java
  *  Execution:    java AllPaths
- *  Depedencies:  Graph.java
- *
- *  Find all paths from s to t.
- *
- *  % java AllPaths
- *  A: B C
- *  B: A F
- *  C: A D F
- *  D: C E F G
- *  E: D G
- *  F: B C D
- *  G: D E
- *
- *  [A, B, F, C, D, E, G]
- *  [A, B, F, C, D, G]
- *  [A, B, F, D, E, G]
- *  [A, B, F, D, G]
- *  [A, C, D, E, G]
- *  [A, C, D, G]
- *  [A, C, F, D, E, G]
- *  [A, C, F, D, G]
- *
- *  [B, A, C, D, F]
- *  [B, A, C, F]
- *  [B, F]
- *
- *  Remarks
- *  --------
- *   -  Currently prints in reverse order due to stack toString()
- *
+ *  Dependencies:  Graph.java
+ * 
  *****************************************************************************
- */
 /**
  *  The <tt>AllPaths</tt> class finds every path possible from two points. It
  * supports the following operations: enumerate, which finds every path that
@@ -45,6 +15,7 @@
  * <i>Introduction to Programming in Java: An Interdisciplinary Approach</i> by
  * Robert Sedgewick and Kevin Wayne.
  */
+
 package smallworld;
 
 import edu.princeton.cs.StdOut;
@@ -108,7 +79,7 @@ public class AllPaths<Vertex> {
         length = answer.nextLine();
         length.toLowerCase();
         System.out.println();
-        System.out.println("Would you like for me to print out every line, "
+        System.out.println("Would you like for me to print out every path, "
                 + "yes or no?"
                 + " (Warning: there may be more paths than you expect!)");
         choice = answer.nextLine();
