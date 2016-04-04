@@ -1,4 +1,4 @@
-# smallWorld
+# Small World
 ### All Paths
 1. This is the cite I got the program from. [Location](http://introcs.cs.princeton.edu/java/45graph/AllPaths.java.html)
 
@@ -11,7 +11,7 @@ this problem.  For example, the social network has used it to "mediate the conne
 1. Made a prompt to handle the questions of what the program should do. [prompt](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L67) [called](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L46)
 2. Made a try and catch in case someone misspell. [try](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L48) [catch](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L51)
 3. Made the color of the catch change to red and then back [red](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L52) [black or defualt](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L53)
-4. Made a method that finds the shortest or longest path. [shortLong](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L156) [called](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L142) [short or long](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L107)
-5. Made a method to print the shortest method. [printingShort](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L241) [called](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L165)
-6. Added a method to print all of the paths. [printPath](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L219) [called](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L191) [user's choice](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L111)
-7. Made a method to print to work for digraph. [printDigraph](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L229) [called](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L162) [decision](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L117)
+4. Made a method that finds the shortest or longest path. [shortLong](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L156) [called](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L113) [short or long](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L78)
+5. Made a method to print the shortest method. [printingShort](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L212) [called](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L136)
+6. Added a method to print all of the paths. [printPath](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L190) [called](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L162) [user's choice](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L82)
+7. Made a method to print to work for digraph. [printDigraph](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L200) [called](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L133) [decision](https://github.com/STOzaki/smallWorld/blob/master/src/smallworld/AllPaths.java#L88)
